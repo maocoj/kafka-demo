@@ -1,13 +1,12 @@
 package stock;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.text.DecimalFormat;
 import java.util.Properties;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by maom3 on 2018/1/11.
@@ -15,7 +14,6 @@ import java.util.Random;
 public class QuotationProducer {
     // set producer message size
     private static final int MSG_SIZE = 100;
-
     private static KafkaProducer<String, String> producer = null;
 
     static {
@@ -56,6 +54,8 @@ public class QuotationProducer {
     }
 
     public static void main(String[] args) {
+        // if async is true, it will send message Asynchronously
+        boolean async = false;
         ProducerRecord<String, String> record = null;
         StockQuotationInfo quotationInfo = null;
         try {
@@ -64,13 +64,24 @@ public class QuotationProducer {
                 quotationInfo = createQuotationInfo();
                 record = new ProducerRecord<String, String>(StockCommon.TOPIC, null, quotationInfo.getTradeTime(),
                         quotationInfo.getStockCode(), quotationInfo.toString());
-                producer.send(record);
+                if (async) {
+                    producer.send(record, new Callback() {
+                        public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+                            System.out.println("#offset:"+ recordMetadata.offset());
+                        }
+                    });
+                } else {
+                    // Future.get() will block if no result returned
+                    producer.send(record).get();
+                }
                 if (num++ % 10 == 0) {
                     Thread.sleep(2000L);
                 }
             }
         } catch (InterruptedException e){
-            System.out.println(e.toString());
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         } finally {
             producer.close();
         }
