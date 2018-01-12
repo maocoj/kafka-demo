@@ -1,6 +1,6 @@
 #
 # if you use this compose file, You must need to specify your
-# KAFKA_ADVERTISED_HOST_NAME host name and KAFKA_ZOOKEEPER_CONNECT
+# KAFKA_ADVERTISED_HOST_NAME and KAFKA_ZOOKEEPER_CONNECT
 #
 version: '2'
 services:
