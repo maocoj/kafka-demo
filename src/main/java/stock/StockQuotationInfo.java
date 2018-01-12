@@ -11,7 +11,7 @@ public class StockQuotationInfo implements Serializable {
     private String stockName;
     private long tradeTime;
     private float preClosePrice;
-    private float openPrivce;
+    private float openPrice;
     private float currentPrice;
     private float highPrice;
     private float lowPrice;
@@ -48,12 +48,12 @@ public class StockQuotationInfo implements Serializable {
         this.preClosePrice = preClosePrice;
     }
 
-    public float getOpenPrivce() {
-        return openPrivce;
+    public float getOpenPrice() {
+        return openPrice;
     }
 
-    public void setOpenPrivce(float openPrivce) {
-        this.openPrivce = openPrivce;
+    public void setOpenPrice(float openPrivce) {
+        this.openPrice = openPrivce;
     }
 
     public float getCurrentPrice() {
@@ -87,7 +87,7 @@ public class StockQuotationInfo implements Serializable {
                 ", stockName='" + stockName + '\'' +
                 ", tradeTime=" + tradeTime +
                 ", preClosePrice=" + preClosePrice +
-                ", openPrivce=" + openPrivce +
+                ", openPrivce=" + openPrice +
                 ", currentPrice=" + currentPrice +
                 ", highPrice=" + highPrice +
                 ", lowPrice=" + lowPrice +

@@ -46,7 +46,7 @@ public class QuotationProducer {
         DecimalFormat decimalFormat = new DecimalFormat(".00");
         quotationInfo.setCurrentPrice(Float.valueOf(decimalFormat.format(11 + random)));
         quotationInfo.setPreClosePrice(11.08f);
-        quotationInfo.setOpenPrivce(11.5f);
+        quotationInfo.setOpenPrice(11.5f);
         quotationInfo.setLowPrice(10.5f);
         quotationInfo.setHighPrice(12.5f);
         quotationInfo.setStockCode(stockCode.toString());

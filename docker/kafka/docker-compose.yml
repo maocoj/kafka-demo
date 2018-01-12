@@ -1,5 +1,5 @@
 #
-# if you use this compose file, You must need specify your
+# if you use this compose file, You must need to specify your
 # KAFKA_ADVERTISED_HOST_NAME host name and KAFKA_ZOOKEEPER_CONNECT
 #
 version: '2'
